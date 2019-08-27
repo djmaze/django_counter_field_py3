@@ -13,11 +13,11 @@ class Command(BaseCommand):
     for a list of available counters.
     """
 
-    def handle(self, *args, **options):
-        if len(args) != 1:
-            sys.exit("Usage: python manage.py rebuild_counter <counter_name>")
+    def add_arguments(self, parser):
+        parser.add_argument('counter_name', type=str)
 
-        counter_name = args[0]
+    def handle(self, *args, **options):
+        counter_name = options['counter_name']
         if not counter_name in counters:
             sys.exit("%s is not a registered counter" % counter_name)
 
